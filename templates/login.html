@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(45deg, #0a192f, #112240);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Animated background elements */
+      .bg-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+
+      .bg-elements::before {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background: repeating-linear-gradient(
+          transparent,
+          transparent 50px,
+          rgba(45, 212, 191, 0.1) 50px,
+          rgba(45, 212, 191, 0.1) 51px
+        );
+        animation: moveLines 20s linear infinite;
+      }
+
+      @keyframes moveLines {
+        0% {
+          transform: translateY(0) rotate(45deg);
+        }
+        100% {
+          transform: translateY(-50%) rotate(45deg);
+        }
+      }
+
+      .container {
+        background: rgba(16, 23, 42, 0.8);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
+        backdrop-filter: blur(10px);
+        z-index: 1;
+        position: relative;
+        animation: containerGlow 3s ease-in-out infinite;
+      }
+
+      @keyframes containerGlow {
+        0%,
+        100% {
+          box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
+        }
+        50% {
+          box-shadow: 0 0 40px rgba(45, 212, 191, 0.5);
+        }
+      }
+
+      h1 {
+        color: #fff;
+        margin-bottom: 30px;
+        text-align: center;
+        font-size: 2.5em;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        animation: titleGlow 2s ease-in-out infinite;
+      }
+
+      @keyframes titleGlow {
+        0%,
+        100% {
+          text-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
+        }
+        50% {
+          text-shadow: 0 0 20px rgba(45, 212, 191, 0.8);
+        }
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 300px;
+      }
+
+      input {
+        padding: 15px;
+        border: none;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #2dd4bf;
+        box-shadow: 0 0 15px rgba(45, 212, 191, 0.3);
+        transform: scale(1.02);
+      }
+
+      input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      button {
+        padding: 15px;
+        border: none;
+        border-radius: 10px;
+        background: #2dd4bf;
+        color: #0a192f;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(45, 212, 191, 0.4);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      p {
+        margin-top: 20px;
+        color: #fff;
+        text-align: center;
+      }
+
+      a {
+        color: #2dd4bf;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      a:hover {
+        text-shadow: 0 0 10px rgba(45, 212, 191, 0.8);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-elements"></div>
+    <div class="container">
+      <h1>Login</h1>
+      <form method="POST">
+        <input type="email" name="email" placeholder="Email" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+      <p>
+        Don't have an account? <a href="{{ url_for('register') }}">Register</a>
+      </p>
+    </div>
+  </body>
+</html>

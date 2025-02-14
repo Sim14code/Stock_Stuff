@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Prediction</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(45deg, #0a192f, #112240);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 600px;
+        background: rgba(16, 23, 42, 0.8);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(45, 212, 191, 0.3);
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2em;
+        color: #2dd4bf;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      label {
+        font-size: 1.1em;
+        color: #2dd4bf;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #2dd4bf;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-size: 16px;
+      }
+
+      button {
+        padding: 12px;
+        background: #2dd4bf;
+        color: #0a192f;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #23a89a;
+      }
+
+      .decision {
+        text-align: center;
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        background: rgba(16, 23, 42, 0.8);
+        color: #fff;
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Stock Prediction</h1>
+      <form method="POST" action="/predict">
+        <label for="open_price">Open Price</label>
+        <input
+          type="number"
+          id="open_price"
+          name="open_price"
+          step="0.01"
+          required
+        />
+
+        <label for="high_price">High Price</label>
+        <input
+          type="number"
+          id="high_price"
+          name="high_price"
+          step="0.01"
+          required
+        />
+
+        <label for="low_price">Low Price</label>
+        <input
+          type="number"
+          id="low_price"
+          name="low_price"
+          step="0.01"
+          required
+        />
+
+        <label for="close_price">Close Price</label>
+        <input
+          type="number"
+          id="close_price"
+          name="close_price"
+          step="0.01"
+          required
+        />
+
+        <label for="volume">Volume</label>
+        <input type="number" id="volume" name="volume" step="1" required />
+
+        <button type="submit">Predict</button>
+      </form>
+
+      {% if decision %}
+      <div class="decision">
+        <strong>Recommendation: {{ decision }}</strong>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>

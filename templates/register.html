@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(45deg, #0a192f, #112240);
+        color: #fff;
+        position: relative;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      /* Animated background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 200%;
+        background: repeating-linear-gradient(
+          transparent,
+          transparent 50px,
+          rgba(45, 212, 191, 0.1) 50px,
+          rgba(45, 212, 191, 0.1) 51px
+        );
+        animation: moveLines 20s linear infinite;
+        z-index: 0;
+      }
+
+      @keyframes moveLines {
+        0% {
+          transform: translateY(0) rotate(45deg);
+        }
+        100% {
+          transform: translateY(-50%) rotate(45deg);
+        }
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.5em;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        animation: titleGlow 2s ease-in-out infinite;
+      }
+
+      @keyframes titleGlow {
+        0%,
+        100% {
+          text-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
+        }
+        50% {
+          text-shadow: 0 0 20px rgba(45, 212, 191, 0.8);
+        }
+      }
+
+      form {
+        background: rgba(16, 23, 42, 0.8);
+        padding: 40px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
+        animation: formGlow 3s ease-in-out infinite;
+      }
+
+      @keyframes formGlow {
+        0%,
+        100% {
+          box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
+        }
+        50% {
+          box-shadow: 0 0 40px rgba(45, 212, 191, 0.5);
+        }
+      }
+
+      input {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #2dd4bf;
+        box-shadow: 0 0 15px rgba(45, 212, 191, 0.3);
+        transform: scale(1.02);
+      }
+
+      input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      button {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 10px;
+        background: #2dd4bf;
+        color: #0a192f;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(45, 212, 191, 0.4);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      p {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 1em;
+        color: #fff;
+      }
+
+      a {
+        color: #2dd4bf;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      a:hover {
+        text-shadow: 0 0 10px rgba(45, 212, 191, 0.8);
+      }
+
+      /* Loading indicator for button */
+      button.loading {
+        position: relative;
+        color: transparent;
+      }
+
+      button.loading::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #0a192f;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .container {
+          padding: 20px;
+        }
+
+        h1 {
+          font-size: 2em;
+          margin-bottom: 30px;
+        }
+
+        form {
+          padding: 20px;
+        }
+
+        input {
+          padding: 12px;
+          margin-bottom: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Register</h1>
+      <form method="POST">
+        <input type="text" name="username" placeholder="Username" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Register</button>
+      </form>
+      <p>
+        Already have an account? <a href="{{ url_for('login') }}">Log in</a>
+      </p>
+    </div>
+
+    <script>
+      document.querySelector("form").addEventListener("submit", function (e) {
+        const button = this.querySelector("button");
+        button.classList.add("loading");
+      });
+    </script>
+  </body>
+</html>
